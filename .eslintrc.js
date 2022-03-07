@@ -2,9 +2,13 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ["eslint:recommended", "plugin:vue/vue3-recommended", "prettier", "@vue/typescript/recommended"
-],
+  extends: [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "prettier",
+    "@vue/typescript/recommended",
+  ],
   rules: {
-    "vue/multi-word-compone": "off"
+    "vue/multi-word-component-names": "off",
   },
 };

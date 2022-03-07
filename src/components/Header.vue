@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="header-main">
@@ -16,7 +15,7 @@
 }
 
 h1 {
-    margin: 0;
+  margin: 0;
   font-size: 36px;
   font-weight: 700;
   color: #00a6ff;
