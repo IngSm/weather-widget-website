@@ -3,7 +3,7 @@
 
 <template>
   <div class="header-main">
-    <h1 v-text="'WeWi'" />
+    <h1 v-text="'Alexander Gorbunov'" />
   </div>
 </template>
 
