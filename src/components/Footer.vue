@@ -13,12 +13,17 @@
         <span v-text="'@AlexWSD'" />
       </div>
     </div>
+    <div class="footer__contacts">
+      <a href="https://github.com/IngSm/weather-widget-new">
+        <h2 v-text="'GitHub'"/>
+      </a>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .header-main {
-  height: 70px;
+  height: 100px;
   background: white;
 }
 
@@ -33,6 +38,10 @@ h1 {
 h2 {
   font-weight: 700;
   margin: 0;
+}
+
+a {
+  color: #00a6ff;
 }
 
 .footer__contacts {
