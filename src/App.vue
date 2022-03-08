@@ -3,8 +3,6 @@ import { ref, toRefs } from "vue";
 
 import { useScroll } from "@vueuse/core";
 
-import Application from "../weather-widget-new/src/App.vue";
-
 import cloud from "@/assets/cloud.svg";
 import cloudSun from "@/assets/cloud-with-sun.svg";
 import win from "@/assets/windows-brands.svg";
@@ -24,12 +22,16 @@ const {
 
 const download = ref(false);
 const tryIt = ref(false);
+const loaded = ref(false);
 
 const showAction = (btn: string): void => {
   if (btn === "download") {
     download.value = true;
     tryIt.value = false;
   } else if (btn === "try") {
+    setTimeout(() => {
+      loaded.value = true
+    }, 4000)
     download.value = false;
     tryIt.value = true;
   }
@@ -37,7 +39,7 @@ const showAction = (btn: string): void => {
 </script>
 
 <template>
-  <div class="main">
+  <div class="main-m">
     <Header class="header" />
     <div ref="el" class="content">
       <div class="content__text">
@@ -89,8 +91,8 @@ const showAction = (btn: string): void => {
           <h2 v-text="'What\'s next?'" />
           <p v-text="'You may:'" />
           <div class="content__text-wrap_flex">
-            <button @click="showAction('download')" v-text="'Download it'" />
-            <button @click="showAction('try')" v-text="'Try it'" />
+            <button @click="showAction('download')" v-text="'Download'" />
+            <button @click="showAction('try')" v-text="'Try'" />
           </div>
           <p v-text="'I hope you will enjoy it :)'" />
         </div>
@@ -99,22 +101,31 @@ const showAction = (btn: string): void => {
       <div v-if="download" class="content__text">
         <div class="content__text-wrap content__text_center">
           <div class="content__text-wrap_flex">
-            <button class="content__down-btn">
-              <img class="content__down-btn-img" :src="win" alt="" />
-            </button>
-            <button class="content__down-btn">
-              <img class="content__down-btn-img" :src="apple" alt="" />
-            </button>
-            <button class="content__down-btn">
-              <img class="content__down-btn-img" :src="linux" alt="" />
-            </button>
+            <a href="https://drive.google.com/file/d/1ksRJflxzIDJ11bg8VHdjKMMGHxM2NhTp/view?usp=sharing">
+              <button class="content__down-btn">
+                <img class="content__down-btn-img" :src="win" alt="" />
+              </button>
+            </a>
+            <a href="https://drive.google.com/file/d/1Q-n5VA4TB0GTa_TNuGn_gcfToA2-7rbc/view?usp=sharing">
+              <button class="content__down-btn">
+                <img class="content__down-btn-img" :src="apple" alt="" />
+              </button>
+            </a>
+            <a href="https://drive.google.com/file/d/1uO4auo9y33D43KYMif7LWGnWxxzw-oLy/view?usp=sharing">
+              <button class="content__down-btn">
+                <img class="content__down-btn-img" :src="linux" alt="" />
+              </button>
+            </a>
           </div>
         </div>
       </div>
 
       <div v-if="tryIt" class="content__text">
         <div class="content__app">
-          <Application />
+          <div v-if="loaded === false" class="content__loader">
+            <div class="content__loading-spinner"></div>
+          </div>
+          <iframe class="content__iframe" src="http://20.101.42.222:8080" frameborder="0"></iframe>
         </div>
       </div>
     </div>
@@ -137,16 +148,19 @@ body {
   overflow: hidden;
 }
 
-.main {
+.main-m {
   height: 100vh;
+  border: 1px solid red;
   display: grid;
+  grid-template-rows: 0fr 1fr 0fr;
   grid-template-areas:
-    "h h"
-    "c c"
-    "f f";
+    "h"
+    "c"
+    "f";
 }
 
 .header {
+  height: 50px;
   grid-area: h;
 }
 
@@ -240,18 +254,49 @@ body {
 }
 
 .content__app {
-  width: 800px;
+  width: 355px;
   height: 300px;
   background: white;
   border-radius: 5px;
+  display: grid;
+  place-items: center;
+  position: relative;
 }
 
-// .content__app-wrap {
-//   width: 100%;
-//   height: 100%;
-// }
+.content__iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.content__loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: white;
+}
+
+.content__loading-spinner {
+  offset-path: path('M0,150 C100,0 100,0 0,0');
+  animation: move 3000ms infinite alternate ease-in-out;
+  width: 30%;
+  height: 35%;
+  border-radius: 50%;
+  background: #00a6ff;
+}
+
+@keyframes move {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
 
 .footer {
+  height: 50px;
   grid-area: f;
 }
 </style>
