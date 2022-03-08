@@ -150,7 +150,6 @@ body {
 
 .main-m {
   height: 100vh;
-  border: 1px solid red;
   display: grid;
   grid-template-rows: 0fr 1fr 0fr;
   grid-template-areas:
